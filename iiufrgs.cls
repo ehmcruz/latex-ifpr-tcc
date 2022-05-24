@@ -386,15 +386,11 @@
 
   \noindent\nominataReitname: \nominataReit
 
-  \noindent\nominataPRCAname: \nominataPRCA
-
-  \noindent\nominataPRAPGname: \nominataPRAPG
+%  \noindent\nominataPRCAname: \nominataPRCA
 
   \noindent\nominataDirname: \nominataDir
 
   \noindent\nominataCoordname: \nominataCoord
-
-  \noindent\nominataBibchefename: \nominataBibchefe
 
   \setlinespacing
   \vspace{18.25mm}

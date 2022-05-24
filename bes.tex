@@ -1,5 +1,6 @@
 %Template para TCC CIC UFRGS
 %Author: Lucas Schnorr (Adaptado para overleaf por Rubens dos Santos)
+% Adaptado para o Instituto Federal do Paraná por Eduardo Henrique Molina da Cruz
 
 % exemplo genérico de uso da classe iiufrgs.cls
 % $Id: iiufrgs.tex,v 1.1.1.1 2005/01/18 23:54:42 avila Exp $
@@ -8,19 +9,7 @@
 % public domain.
 % 
 \documentclass[cic,tc]{iiufrgs}
-% Para usar o modelo, deve-se informar o programa e o tipo de documento.
-% Programas :
-% * cic       -- Graduação em Ciência da Computação
-% * ecp       -- Graduação em Ciência da Computação
-% * ppgc      -- Programa de Pós Graduação em Computação
-% * pgmigro   -- Programa de Pós Graduação em Microeletrônica
-% 
-% Tipos de Documento:
-% * tc                -- Trabalhos de Conclusão (apenas cic e ecp)
-% * diss ou mestrado  -- Dissertações de Mestrado (ppgc e pgmicro)
-% * tese ou doutorado -- Teses de Doutorado (ppgc e pgmicro)
-% * ti                -- Trabalho Individual (ppgc e pgmicro)
-% 
+ 
 % Outras Opções:
 % * english    -- para textos em inglês
 % * openright  -- Força início de capítulos em páginas ímpares (padrão da
@@ -44,7 +33,7 @@
 % 
 % Informações gerais
 % 
-\title{Um Exemplo de Monografia do Instituto de Informática da UFRGS}
+\title{Um Exemplo de Monografia do Instituto Federal do Paraná}
 
 \author{Flaumann}{Fritz Gutenberg}
 % alguns documentos podem ter varios autores:
@@ -57,24 +46,31 @@
 
 % a data deve ser a da defesa; se nao especificada, são gerados
 % mes e ano correntes
-% \date{maio}{2001}
+
+\date{Dezembro}{2022}
 
 % o local de realização do trabalho pode ser especificado (ex. para TCs)
 % com o comando \location:
-% \location{Itaquaquecetuba}{SP}
+
+\location{Paranavaí}{PR}
 
 % itens individuais da nominata podem ser redefinidos com os comandos
 % abaixo:
-% \renewcommand{\nominataReit}{Prof\textsuperscript{a}.~Wrana Maria Panizzi}
-% \renewcommand{\nominataReitname}{Reitora}
-% \renewcommand{\nominataPRE}{Prof.~Jos{\'e} Carlos Ferraz Hennemann}
-% \renewcommand{\nominataPREname}{Pr{\'o}-Reitor de Ensino}
+
+\renewcommand{\nominataReit}{Prof.~Odacir Antonio Zanatta}
+\renewcommand{\nominataReitname}{Reitor}
+
+%\renewcommand{\nominataPRE}{Prof.~Jos{\'e} Carlos Ferraz Hennemann}
+%\renewcommand{\nominataPREname}{Pr{\'o}-Reitor de Ensino}
 % \renewcommand{\nominataPRAPG}{Prof\textsuperscript{a}.~Joc{\'e}lia Grazia}
 % \renewcommand{\nominataPRAPGname}{Pr{\'o}-Reitora Adjunta de P{\'o}s-Gradua{\c{c}}{\~a}o}
-% \renewcommand{\nominataDir}{Prof.~Philippe Olivier Alexandre Navaux}
-% \renewcommand{\nominataDirname}{Diretor do Instituto de Inform{\'a}tica}
-% \renewcommand{\nominataCoord}{Prof.~Carlos Alberto Heuser}
-% \renewcommand{\nominataCoordname}{Coordenador do PPGC}
+
+\renewcommand{\nominataDir}{Prof.~Jos{\'e} Barbosa Dias J{\'u}nior}
+\renewcommand{\nominataDirname}{Diretor do Campus Paranava{\'i}}
+
+\renewcommand{\nominataCoord}{Prof.~Rafael Henrique Dalegrave Zottesso}
+\renewcommand{\nominataCoordname}{Coordenador do Curso de Bacharelado em Engenharia de Software}
+
 % \renewcommand{\nominataBibchefe}{Beatriz Regina Bastos Haro}
 % \renewcommand{\nominataBibchefename}{Bibliotec{\'a}ria-chefe do Instituto de Inform{\'a}tica}
 % \renewcommand{\nominataChefeINA}{Prof.~Jos{\'e} Valdeni de Lima}
@@ -278,15 +274,15 @@ já que o abntex2 usa uns comandos de citação feitos para alienígenas de 5 br
 wtf. Exemplos de citação:
 
 \begin{itemize}
-    \item \emph{cite}: Unicórnios são verdes \cite{Adams2009Conceptual};
-    \item \emph{citep}:Unicórnios são verdes \citep{Adams2009Conceptual};
-    \item \emph{citet}: Segundo \citet{Adams2009Conceptual}, unicórnios são
+    \item \emph{cite}: Unicórnios são verdes \cite{diener2015characterizing};
+    \item \emph{citep}:Unicórnios são verdes \citep{diener2015characterizing};
+    \item \emph{citet}: Segundo \citet{diener2015characterizing}, unicórnios são
     verdes.
-    \item \emph{citen or citenum}: Segundo \citen{Adams2009Conceptual},
+    \item \emph{citen or citenum}: Segundo \citen{diener2015characterizing},
     unicórnios são verdes.
     \item \emph{citeauthor e citeyearpar}: Segundo artigos de
-    \citeauthor{Adams2009Conceptual} , unicórnios são verdes
-    \citeyearpar{Adams2009Conceptual}.
+    \citeauthor{diener2015characterizing} , unicórnios são verdes
+    \citeyearpar{diener2015characterizing}.
 
 \end{itemize}
 
