@@ -77,7 +77,6 @@
 
 \RequirePackage{xspace}
 \RequirePackage{keyval}
-\RequirePackage{fixltx2e}
 
 \RequirePackage[english,brazilian]{babel}
 \input{brazilian.babel}
@@ -90,7 +89,6 @@
 \RequirePackage{indentfirst}
 \RequirePackage{iidefs}
 \RequirePackage{setspace}
-\RequirePackage{ccaption}
 \RequirePackage{titlesec}
 \RequirePackage{fancyhdr}
 \RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
@@ -135,7 +133,8 @@
 	% O modelo da UFRGS requer que os títulos dos trabalhos estejam em negrito.
     % Isso é opcional na norma ABNT (que permite que seja usado itálico) e
     % não é o padrão do abntex2.
-    abnt-emphasize=bf
+    abnt-emphasize=bf,
+    bibjustif
 ]{abntex2cite}
 \fi
 
@@ -218,16 +217,37 @@
         \@ifundefined{keywj}{}{10.~\expandafter\MakeUppercase\keywj\@. }%
 }
 \newcommand{\@abstractkw}{%
-        \@ifundefined{keywa}{}{\expandafter\MakeUppercase\keywa}%
-        \@ifundefined{keywb}{}{. \keywb}%
-        \@ifundefined{keywc}{}{. \keywc}%
-        \@ifundefined{keywd}{}{. \keywd}%
-        \@ifundefined{keywe}{}{. \keywe}%
-        \@ifundefined{keywf}{}{. \keywf}%
-        \@ifundefined{keywg}{}{. \keywg}%
-        \@ifundefined{keywh}{}{. \keywh}%
-        \@ifundefined{keywi}{}{. \keywi}%
-        \@ifundefined{keywj}{}{. \keywj}%
+        \@ifundefined{keywa}{}{\keywa.}%
+        \@ifundefined{keywb}{}{ \keywb.}%
+        \@ifundefined{keywc}{}{ \keywc.}%
+        \@ifundefined{keywd}{}{ \keywd.}%
+        \@ifundefined{keywe}{}{ \keywe.}%
+        \@ifundefined{keywf}{}{ \keywf.}%
+        \@ifundefined{keywg}{}{ \keywg.}%
+        \@ifundefined{keywh}{}{ \keywh.}%
+        \@ifundefined{keywi}{}{ \keywi.}%
+        \@ifundefined{keywj}{}{ \keywj.}%
+}
+
+%==============================================================================
+% Definição das palavras-chave no segundo idioma (máx. 10)
+%==============================================================================
+\newcounter{translatedkwcounter}
+\newcommand{\translatedkeyword}[1]{
+        \addtocounter{translatedkwcounter}{1}
+        \expandafter\gdef\csname translatedkeyw\alph{translatedkwcounter}\endcsname{#1}
+}
+\newcommand{\@translatedabstractkw}{%
+        \@ifundefined{translatedkeywa}{}{\translatedkeywa.}%
+        \@ifundefined{translatedkeywb}{}{ \translatedkeywb.}%
+        \@ifundefined{translatedkeywc}{}{ \translatedkeywc.}%
+        \@ifundefined{translatedkeywd}{}{ \translatedkeywd.}%
+        \@ifundefined{translatedkeywe}{}{ \translatedkeywe.}%
+        \@ifundefined{translatedkeywf}{}{ \translatedkeywf.}%
+        \@ifundefined{translatedkeywg}{}{ \translatedkeywg.}%
+        \@ifundefined{translatedkeywh}{}{ \translatedkeywh.}%
+        \@ifundefined{translatedkeywi}{}{ \translatedkeywi.}%
+        \@ifundefined{translatedkeywj}{}{ \translatedkeywj.}%
 }
 
 %==============================================================================
@@ -471,19 +491,48 @@
 }
 
 %==============================================================================
-% Resumo (abstract) e Abstract (englishabstract)
+% Resumo (abstract) e Abstract (translatedabstract)
 %==============================================================================
 \renewenvironment{abstract}{%
         \chapter*{\abstractname}\setlength{\parindent}{0pt}
 }{%
     %\par\vfill
-    %\\
     \\
-
-    \vspace{\parskip}\noindent\textbf{\keywordsname:} \@abstractkw.
+    \vspace{\parskip}\noindent\textbf{\keywordsname:} \@abstractkw
 }
 
+\newenvironment{translatedabstract}[0]{%
+    \if@openright\cleardoublepage\else\clearpage\fi%
+    \iflanguage{english}{
+        \begin{otherlanguage}{brazilian}
+    }{
+        \begin{otherlanguage}{english}
+    }
+    \@ifundefined{@translatedtitle}{%
+        \PackageWarningNoLine{iiufrgs}{Translated title not defined. Use the translatedtitle command to define it}
+    }{%
+        \begin{center}%
+            \textbf{\@translatedtitle}%
+            \vspace{12pt}
+        \end{center}
+    }
+    \samepagechapter*{\abstractname}\setlength{\parindent}{0pt}
+}{%
+    \ifnum\value{translatedkwcounter}>0
+        \vspace{12pt}
+
+        \noindent\textbf{\keywordsname:} \@translatedabstractkw
+    \else
+        \PackageWarningNoLine{iiufrgs}{No translated keyword has been defined. Use
+        the translatedkeyword command to define them.}
+    \fi
+    \end{otherlanguage}
+}
+
+% Deprecated
 \newenvironment{englishabstract}[2]{%
+        \PackageWarning{iiufrgs}{The 'englishabstract' is deprecated, use 'translatedabstract'
+        instead (https://github.com/schnorr/infufrgs/pull/80)}
         \if@openright\cleardoublepage\else\clearpage\fi%
         \gdef\@englishkeywords{#2}%
         \iflanguage{english}{
@@ -502,6 +551,13 @@
   \noindent\textbf{\keywordsname:} \@englishkeywords.
 \end{otherlanguage}
 }
+
+%==============================================================================
+% Definição do título traduzido no segundo idioma
+%==============================================================================
+\newcommand{\translatedtitle}[1]{%
+    \gdef\@translatedtitle{#1}%
+}%
 
 
 %==============================================================================
@@ -626,20 +682,16 @@
 %==============================================================================
 % Ajuste das legendas das figuras e tabelas
 %==============================================================================
-\RequirePackage{float}
-\floatstyle{plaintop}
-\restylefloat{figure}
-\restylefloat{table}
-
-\captiondelim{ -- }
-\setlength{\abovecaptionskip}{0pt}
-\setlength{\belowcaptionskip}{0pt}
-\setlength{\belowlegendskip}{0pt}
-
-\captiontitlefont{\small}
-
-
-
+\RequirePackage[
+        format=plain,labelsep=endash,justification=centering,font=small,
+        skip=0pt
+]{caption}
+% The command `\legend` does not exist in the `caption` package, but is the
+% same as `\caption*` which does not number the caption, do not go in the list
+% of figures (or tables), and will be below the figure/table if it is placed
+% below it. The only thing that needs adjust is returning the font size to
+% the normal size.
+\newcommand{\legend}[1]{\caption*{\normalsize #1}}
 
 %==============================================================================
 % Ajuste do formato das citações e referências
